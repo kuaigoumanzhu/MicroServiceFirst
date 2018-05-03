@@ -14,6 +14,25 @@ namespace User.API.Data
             modelBuilder.Entity<AppUser>()
                 .ToTable("Users")
                 .HasKey(u => u.Id);
+
+            modelBuilder.Entity<UserProperty>()
+                .Property(u => u.Key).HasMaxLength(100);
+            modelBuilder.Entity<UserProperty>()
+                .Property(u => u.Value).HasMaxLength(100);
+            modelBuilder.Entity<UserProperty>()
+                .ToTable("UserProperties")
+                .HasKey(u => new { u.Key, u.AppUserId, u.Value });         
+
+            modelBuilder.Entity<UserTag>()
+                .Property(u => u.Tag).HasMaxLength(100);
+            modelBuilder.Entity<UserTag>()
+                .ToTable("UserTags")
+                .HasKey(u => new { u.UserId, u.Tag });            
+
+            modelBuilder.Entity<BpFile>()
+                .ToTable("BpFiles")
+                .HasKey(b => b.Id);
+
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<AppUser> Users { get; set; }
