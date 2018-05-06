@@ -12,6 +12,8 @@ namespace User.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppUser>()
+                .Property(u => u.Address).HasMaxLength(200);
+            modelBuilder.Entity<AppUser>()
                 .ToTable("Users")
                 .HasKey(u => u.Id);
 
@@ -36,5 +38,8 @@ namespace User.API.Data
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<BpFile> BpFiles { get; set; }
+        public DbSet<UserProperty> UserPropertites { get; set; }
+        public DbSet<UserTag> UserTags { get; set; }
     }
 }
